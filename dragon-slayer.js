@@ -16,20 +16,20 @@ var playerTurn = function() {
     var playerAttack = attack(5);
 
     if(playerAttack == 0) {
-      console.log("The enemy blocked!");
+      document.write("The enemy blocked!<br/>");
     }
     else {
-      console.log("You hit your enemy and did " + playerAttack + " damage");
+      document.write("You hit your enemy and did " + playerAttack + " damage<br/>");
       enemyHealth -= playerAttack;
       if(enemyHealth < 0) {
         enemyHealth = 0;
       }
-      console.log("Your enemy now has: " + enemyHealth + " health");
+      document.write("Your enemy now has: " + enemyHealth + " health<br />");
     }
 
   }
   else {
-    console.log("You missed...");
+    document.write("You missed...<br />");
   }
 };
 
@@ -38,41 +38,41 @@ var enemyTurn = function() {
     var enemyAttack = attack(3);
 
     if(enemyAttack == 0) {
-      console.log("You blocked!");
+      document.write("You blocked!<br />");
     }
     else {
-      console.log("The enemy hit you for " + enemyAttack + " damage");
+      document.write("The enemy hit you for " + enemyAttack + " damage<br />");
       playerHealth -= enemyAttack;
       if(playerHealth < 0) {
         playerHealth = 0;
       }
-      console.log("You now have " + playerHealth + " health");
+      document.write("You now have " + playerHealth + " health<br />");
     }
 
   }
   else {
-    console.log("The enemy missed you...");
+    document.write("The enemy missed you...<br />");
   }
 };
 
 while(playerHealth > 0 && enemyHealth > 0) {
-  console.log("Turn number: " + turnCount++);
-  console.log("Your health: " + playerHealth);
-  console.log("Enemy health: " + enemyHealth);
+  document.write("Turn number: " + turnCount++ + "<br />");
+  document.write("Your health: " + playerHealth + "<br />");
+  document.write("Enemy health: " + enemyHealth + "<br />");
 
   playerTurn();
   enemyTurn();
 
-  console.log(" ");
+  document.write("<br />");
 }
 
-console.log("Your health: " + playerHealth);
-console.log("Enemy health: " + enemyHealth);
+document.write("Your health: " + playerHealth + "<br />");
+document.write("Enemy health: " + enemyHealth + "<br />");
 if(playerHealth == 0) {
-  console.log("You died...");
-  console.log("The battle raged for " + (turnCount - 1) + " turns");
+  document.write("You died...<br />");
+  document.write("The battle raged for " + (turnCount - 1) + " turns<br />");
 }
 else {
-  console.log("You won!");
-  console.log("The battle raged for " + (turnCount - 1) + " turns");
+  document.write("You won!<br />");
+  document.write("The battle raged for " + (turnCount - 1) + " turns<br />");
 }
