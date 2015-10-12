@@ -1,6 +1,17 @@
 var turnCount = 1;
 var playerHealth = 10;
 var enemyHealth = 25;
+var renderLog = document.getElementById("log");
+var renderTurn = document.getElementById("turn");
+
+var scrollToBottom = function() {
+  return renderLog.scrollTop = renderLog.scrollHeight;
+}
+
+renderTurn.innerHTML = ("Turn number: " + turnCount + "<br />");
+
+renderLog.innerHTML += ("Your health: " + playerHealth + "<br />");
+renderLog.innerHTML += ("Enemy health: " + enemyHealth + "<br />");
 
 var hitCheck = function() {
   return Math.floor(Math.random() * 2);
@@ -12,24 +23,35 @@ var attack = function(number) {
 }
 
 var playerTurn = function() {
+  renderTurn.innerHTML = ("Turn number: " + turnCount++ + "<br />");
+  scrollToBottom();
+
   if(hitCheck()) {
     var playerAttack = attack(5);
 
     if(playerAttack == 0) {
-      document.write("The enemy blocked!<br/>");
+      renderLog.innerHTML += ("The enemy blocked!<br/>");
+      scrollToBottom();
+      enemyTurn();
     }
     else {
-      document.write("You hit your enemy and did " + playerAttack + " damage<br/>");
+      renderLog.innerHTML += ("You hit your enemy and did " + playerAttack + " damage<br/>");
+      scrollToBottom();
+
       enemyHealth -= playerAttack;
       if(enemyHealth < 0) {
         enemyHealth = 0;
       }
-      document.write("Your enemy now has: " + enemyHealth + " health<br />");
+      renderLog.innerHTML += ("Your enemy now has: " + enemyHealth + " health<br />");
+      scrollToBottom();
+      enemyTurn();
     }
 
   }
   else {
-    document.write("You missed...<br />");
+    renderLog.innerHTML += ("You missed...<br />");
+    scrollToBottom();
+    enemyTurn();
   }
 };
 
@@ -38,24 +60,28 @@ var enemyTurn = function() {
     var enemyAttack = attack(3);
 
     if(enemyAttack == 0) {
-      document.write("You blocked!<br />");
+      renderLog.innerHTML += ("You blocked!<br />");
+      scrollToBottom();
     }
     else {
-      document.write("The enemy hit you for " + enemyAttack + " damage<br />");
+      renderLog.innerHTML += ("The enemy hit you for " + enemyAttack + " damage<br />");
+      scrollToBottom();
       playerHealth -= enemyAttack;
       if(playerHealth < 0) {
         playerHealth = 0;
       }
-      document.write("You now have " + playerHealth + " health<br />");
+      renderLog.innerHTML += ("You now have " + playerHealth + " health<br />");
+      scrollToBottom();
     }
 
   }
   else {
-    document.write("The enemy missed you...<br />");
+    renderLog.innerHTML += ("The enemy missed you...<br />");
+    scrollToBottom();
   }
 };
 
-while(playerHealth > 0 && enemyHealth > 0) {
+/*while(playerHealth > 0 && enemyHealth > 0) {
   document.write("Turn number: " + turnCount++ + "<br />");
   document.write("Your health: " + playerHealth + "<br />");
   document.write("Enemy health: " + enemyHealth + "<br />");
@@ -68,11 +94,16 @@ while(playerHealth > 0 && enemyHealth > 0) {
 
 document.write("Your health: " + playerHealth + "<br />");
 document.write("Enemy health: " + enemyHealth + "<br />");
+*/
 if(playerHealth == 0) {
-  document.write("You died...<br />");
-  document.write("The battle raged for " + (turnCount - 1) + " turns<br />");
+  renderLog.innerHTML += ("You died...<br />");
+  scrollToBottom();
+  renderLog.innerHTML += ("The battle raged for " + (turnCount - 1) + " turns<br />");
+  scrollToBottom();
 }
-else {
-  document.write("You won!<br />");
-  document.write("The battle raged for " + (turnCount - 1) + " turns<br />");
+else if(enemyHealth == 0) {
+  renderLog.innerHTML += ("You won!<br />");
+  scrollToBottom();
+  renderLog.innerHTML += ("The battle raged for " + (turnCount - 1) + " turns<br />");
+  scrollToBottom();
 }
