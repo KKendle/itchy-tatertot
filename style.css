@@ -8,11 +8,6 @@ body {
   font-family: sans-serif;
 }
 
-/* MISC */
-.clearfix {
-  clear: both;
-}
-
 /* BATTLE LOG */
 .battle-log {
   margin: 10px 0;
@@ -35,12 +30,14 @@ body {
 }
 
 .battle-nav {
-  margin: 0 auto 30px;
+  margin: 0 auto 70px;
+  display: flex;
+  justify-content: center;
 }
 
 /* TURN COUNTER */
 .turn-counter {
-  margin: 0 auto;
+  margin: auto;
   width: 25px;
   background-color: #3d3e4b;
   color: #fff;
@@ -49,7 +46,14 @@ body {
   border-radius: 50%;
   padding: 2px 3px;
   position: relative;
-  left: -2px;
+  top: 8px;
+  order: 2;
+}
+@media (min-width: 768px) {
+  .turn-counter {
+    width: 40px;
+    padding: 6px 1px;
+  }
 }
 
 /* HEALTH BARS */
@@ -58,19 +62,26 @@ body {
   max-width: 500px;
 }
 .health {
-  margin-bottom: 10px;
-  display: inline-block;
-  width: 45%;
-}
-.health.player {
-  margin-right: 3%;
+  margin: auto;
+  width: 46%;
+  max-width: 300px;
+  padding: 0 1%;
 }
 .health.enemy {
-  margin-left: 5%;
+  order: 3;
 }
 .healthbar {
   height: 20px;
   background: green;
+}
+.healthbar.yellow {
+  background: yellow;
+}
+.healthbar.red {
+  background: red;
+}
+.healthbar.gray {
+  background: gray;
 }
 
 /* TURN BUTTON */

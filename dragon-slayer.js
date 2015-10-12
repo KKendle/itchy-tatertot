@@ -1,13 +1,15 @@
 var turnCount = 1;
 var playerHealthStart = 10;
-var enemyHealthStart = 25;
+var enemyHealthStart = 15;
 var playerHealth = 10;
-var enemyHealth = 25;
+var enemyHealth = 15;
 
 var renderLog = document.getElementById("log");
 var renderTurn = document.getElementById("turn");
 var renderPlayerHealth = document.getElementById("playerHealth");
 var renderEnemyHealth = document.getElementById("enemyHealth");
+var getPlayerHealthbar = document.getElementsByClassName("healthbar")[0];
+var getEnemyHealthbar = document.getElementsByClassName("healthbar")[1];
 
 var scrollToBottom = function() {
   return renderLog.scrollTop = renderLog.scrollHeight;
@@ -60,6 +62,13 @@ var playerTurn = function() {
   if(hitCheck()) {
     var playerAttack = attack(5);
 
+    if(enemyHealth <= 12) {
+      getEnemyHealthbar.classList.add("yellow");
+    }
+    if(enemyHealth <= 5) {
+      getEnemyHealthbar.classList.add("red");
+    }
+
     if(playerAttack == 0) {
       renderLog.innerHTML += ("The enemy blocked!<br/>");
       scrollToBottom();
@@ -74,6 +83,7 @@ var playerTurn = function() {
       if(enemyHealth <= 0) {
         enemyHealth = 0;
         renderEnemyHealth.innerHTML = enemyHealth;
+        getEnemyHealthbar.classList.add("gray");
         playerWin();
       }
       else {
@@ -103,9 +113,17 @@ var enemyTurn = function() {
       playerHealth -= enemyAttack;
       renderPlayerHealth.innerHTML = playerHealth;
 
+      if(playerHealth <= 7) {
+        getPlayerHealthbar.classList.add("yellow");
+      }
+      if(playerHealth <= 3) {
+        getPlayerHealthbar.classList.add("red");
+      }
+
       if(playerHealth <= 0) {
         playerHealth = 0;
         renderPlayerHealth.innerHTML = playerHealth;
+        getPlayerHealthbar.classList.add("gray");
         playerLose();
       }
       else {
