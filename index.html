@@ -5,13 +5,31 @@
 <body>
 <h1>Dragon Slayer</h1>
 
-<div>Turn number: <span id="turn"></span></div>
-<div>Player Health: <span id="playerHealth"></span></div>
-<div>Enemy Health: <span id="enemyHealth"></span></div>
+<div class="battle-log">
+  <header class="battle-log-header">Battle Log</header>
+  <p id="log">
+    Tap the "Take Turn" button to play the game. The enemy automatically will take it's turn after you.<br />
+  </p>
+</div>
 
-<div id="log"></div>
+<div class="battle-nav">
+  <div class="turn-counter">
+    <span id="turn"></span>
+  </div>
 
-<button onclick="playerTurn();">
+  <div class="health-container">
+    <div class="health player">
+      Player Health: <span id="playerHealth"></span>
+      <div class="healthbar"></div>
+    </div>
+    <div class="health enemy">
+      Enemy Health: <span id="enemyHealth"></span>
+      <div class="healthbar"></div>
+    </div>
+  </div>
+</div>
+
+<button id="take-turn" onclick="playerTurn();">
   Take turn
 </button>
 

@@ -1,5 +1,91 @@
+/*
+  COLORS:
+  main: #22313F;
+*/
+
+body {
+  font-size: 16px;
+  font-family: sans-serif;
+}
+
+/* MISC */
+.clearfix {
+  clear: both;
+}
+
+/* BATTLE LOG */
+.battle-log {
+  margin: 10px 0;
+  border: 5px solid #1f1f30;
+  background: #3d3e4b;
+  color: #fff;
+  border-radius: 4px;
+}
+.battle-log-header {
+  padding: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: #1f1f30;
+}
 #log {
   overflow: scroll;
   height: 150px;
-  margin: 10px 0;
+  margin: 0;
+  padding: 5px 15px;
+}
+
+.battle-nav {
+  margin: 0 auto 30px;
+}
+
+/* TURN COUNTER */
+.turn-counter {
+  margin: 0 auto;
+  width: 25px;
+  background-color: #3d3e4b;
+  color: #fff;
+  font-size: 1.5em;
+  text-align: center;
+  border-radius: 50%;
+  padding: 2px 3px;
+  position: relative;
+  left: -2px;
+}
+
+/* HEALTH BARS */
+.health-container {
+  margin: 0 auto;
+  max-width: 500px;
+}
+.health {
+  margin-bottom: 10px;
+  display: inline-block;
+  width: 45%;
+}
+.health.player {
+  margin-right: 3%;
+}
+.health.enemy {
+  margin-left: 5%;
+}
+.healthbar {
+  height: 20px;
+  background: green;
+}
+
+/* TURN BUTTON */
+#take-turn {
+  cursor: pointer;
+  border: none;
+  background: #1f1f30;
+  color: #fff;
+  padding: 12px 18px;
+  font-size: 16px;
+  margin: 0 auto;
+  display: block;
+}
+#take-turn.disabled,
+#take-turn:disabled {
+  background: rgba(31, 31, 48, .5);
+  cursor: not-allowed;
 }

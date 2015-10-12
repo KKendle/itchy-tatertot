@@ -1,4 +1,6 @@
 var turnCount = 1;
+var playerHealthStart = 10;
+var enemyHealthStart = 25;
 var playerHealth = 10;
 var enemyHealth = 25;
 
