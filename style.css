@@ -73,15 +73,19 @@ body {
 .healthbar {
   height: 20px;
   background: green;
+  width: 100%;
 }
 .healthbar.yellow {
   background: yellow;
+  width: 70%;
 }
 .healthbar.red {
   background: red;
+  width: 30%;
 }
 .healthbar.gray {
   background: gray;
+  width: 2px;
 }
 
 /* TURN BUTTON */
