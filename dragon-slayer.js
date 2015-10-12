@@ -1,17 +1,45 @@
 var turnCount = 1;
 var playerHealth = 10;
 var enemyHealth = 25;
+
 var renderLog = document.getElementById("log");
 var renderTurn = document.getElementById("turn");
+var renderPlayerHealth = document.getElementById("playerHealth");
+var renderEnemyHealth = document.getElementById("enemyHealth");
 
 var scrollToBottom = function() {
   return renderLog.scrollTop = renderLog.scrollHeight;
 }
 
-renderTurn.innerHTML = ("Turn number: " + turnCount + "<br />");
+var playerLose = function() {
+  renderLog.innerHTML += ("You died...<br />");
+  scrollToBottom();
+  renderLog.innerHTML += ("The battle raged for " + (turnCount - 1) + " turns<br />");
+  scrollToBottom();
+  document.getElementsByTagName("button")[0].disabled = true;
+}
 
-renderLog.innerHTML += ("Your health: " + playerHealth + "<br />");
-renderLog.innerHTML += ("Enemy health: " + enemyHealth + "<br />");
+var playerWin = function() {
+  renderLog.innerHTML += ("You won!<br />");
+  scrollToBottom();
+  renderLog.innerHTML += ("The battle raged for " + (turnCount - 1) + " turns<br />");
+  scrollToBottom();
+  document.getElementsByTagName("button")[0].disabled = true;
+}
+
+var checkGameOver = function() {
+  if(playerHealth == 0) {
+    playerLose();
+  }
+  else if(enemyHealth == 0) {
+    playerWin();
+  }
+}
+
+renderTurn.innerHTML = (turnCount++);
+
+renderPlayerHealth.innerHTML = playerHealth;
+renderEnemyHealth.innerHTML = enemyHealth;
 
 var hitCheck = function() {
   return Math.floor(Math.random() * 2);
@@ -23,9 +51,10 @@ var attack = function(number) {
 }
 
 var playerTurn = function() {
-  renderTurn.innerHTML = ("Turn number: " + turnCount++ + "<br />");
+  renderTurn.innerHTML = (turnCount++);
   scrollToBottom();
 
+  renderLog.innerHTML += ("<br />");
   if(hitCheck()) {
     var playerAttack = attack(5);
 
@@ -37,14 +66,17 @@ var playerTurn = function() {
     else {
       renderLog.innerHTML += ("You hit your enemy and did " + playerAttack + " damage<br/>");
       scrollToBottom();
-
       enemyHealth -= playerAttack;
-      if(enemyHealth < 0) {
+      renderEnemyHealth.innerHTML = enemyHealth;
+
+      if(enemyHealth <= 0) {
         enemyHealth = 0;
+        renderEnemyHealth.innerHTML = enemyHealth;
+        playerWin();
       }
-      renderLog.innerHTML += ("Your enemy now has: " + enemyHealth + " health<br />");
-      scrollToBottom();
-      enemyTurn();
+      else {
+        enemyTurn();
+      }
     }
 
   }
@@ -67,11 +99,16 @@ var enemyTurn = function() {
       renderLog.innerHTML += ("The enemy hit you for " + enemyAttack + " damage<br />");
       scrollToBottom();
       playerHealth -= enemyAttack;
-      if(playerHealth < 0) {
+      renderPlayerHealth.innerHTML = playerHealth;
+
+      if(playerHealth <= 0) {
         playerHealth = 0;
+        renderPlayerHealth.innerHTML = playerHealth;
+        playerLose();
       }
-      renderLog.innerHTML += ("You now have " + playerHealth + " health<br />");
-      scrollToBottom();
+      else {
+        scrollToBottom();
+      }
     }
 
   }
@@ -80,30 +117,3 @@ var enemyTurn = function() {
     scrollToBottom();
   }
 };
-
-/*while(playerHealth > 0 && enemyHealth > 0) {
-  document.write("Turn number: " + turnCount++ + "<br />");
-  document.write("Your health: " + playerHealth + "<br />");
-  document.write("Enemy health: " + enemyHealth + "<br />");
-
-  playerTurn();
-  enemyTurn();
-
-  document.write("<br />");
-}
-
-document.write("Your health: " + playerHealth + "<br />");
-document.write("Enemy health: " + enemyHealth + "<br />");
-*/
-if(playerHealth == 0) {
-  renderLog.innerHTML += ("You died...<br />");
-  scrollToBottom();
-  renderLog.innerHTML += ("The battle raged for " + (turnCount - 1) + " turns<br />");
-  scrollToBottom();
-}
-else if(enemyHealth == 0) {
-  renderLog.innerHTML += ("You won!<br />");
-  scrollToBottom();
-  renderLog.innerHTML += ("The battle raged for " + (turnCount - 1) + " turns<br />");
-  scrollToBottom();
-}
