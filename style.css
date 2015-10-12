@@ -1,0 +1,5 @@
+#log {
+  overflow: scroll;
+  height: 300px;
+  margin: 10px 0;
+}
