@@ -45,26 +45,79 @@ var checkGameOver = function() {
   }
 };
 
+var potionCheck = function(character) {
+  console.log("checking if using a potion");
+  console.log("this character " + character.name + " is checking for potion");
+  console.log(character.name + " has " + character.health + " left");
+  var random = Math.random();
+  console.log(random);
+  if(random <= .05) {
+    console.log("large potion");
+    console.log("10");
+    console.log(character.name + " has " + character.health + " health");
+    console.log(character.name + " is healed for 10 health and now has " + (character.health + 10) + " health")
+    return character.health += 10;
+  }
+  else if(random <= .08) {
+    console.log("medium potion");
+    console.log("7");
+    console.log(character.name + " has " + character.health + " health");
+    console.log(character.name + " is healed for 7 health and now has " + (character.health + 7) + " health")
+    return character.health += 7;
+  }
+  else if(random <= .15) {
+    console.log("small potion");
+    console.log("3");
+    console.log(character.name + " has " + character.health + " health");
+    console.log(character.name + " is healed for 3 health and now has " + (character.health + 3) + " health")
+    return character.health += 3;
+  }
+  else {
+    console.log("no potion");
+    return 0;
+  }
+}
+
 var hitCheck = function() {
-  return Math.floor(Math.random() * 2);
+  // rewrite to raise hit rate.
+  // may also add in dodge, parry, and separate block and miss.
+  var hit = Math.random();
+  if(hit <= .01) {
+    console.log("miss");
+    return false;
+  }
+  else {
+    console.log("hit");
+    return true;
+  }
 };
 
 var attack = function(number) {
+  // remove block functionality and put elsewhere
+  // probably under hit check
   // can be 0
   return Math.floor(Math.random() * number);
 }
+
+
 
 renderTurn.innerHTML = (turnCount++);
 renderPlayerHealth.innerHTML = person.health;
 renderEnemyHealth.innerHTML = opponent.health;
 
-
 var playerTurn = function() {
   renderTurn.innerHTML = (turnCount++);
   scrollToBottom();
+  var potion = potionCheck(person);
+  console.log("potion return of " + potion);
+  if(potion > 0) {
+    console.log("healing");
+    renderPlayerHealth.innerHTML = person.health;
+  }
 
   renderLog.innerHTML += ("<br />");
   if(hitCheck()) {
+    console.log("player hit");
     var playerAttack = attack(person.attackPower);
 
     if(opponent.health <= 12) {
@@ -105,7 +158,15 @@ var playerTurn = function() {
 };
 
 var enemyTurn = function() {
+  var potion = potionCheck(opponent);
+  console.log("potion return of " + potion);
+  if(potion > 0) {
+    console.log("healing");
+    renderEnemyHealth.innerHTML = opponent.health;
+  }
+
   if(hitCheck()) {
+    console.log("enemy hit");
     var enemyAttack = attack(opponent.attackPower);
 
     if(enemyAttack == 0) {
