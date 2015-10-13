@@ -1,8 +1,13 @@
+function Character(name, health, attackPower) {
+  this.name = name;
+  this.health = health;
+  this.attackPower = attackPower;
+}
+
+var person = new Character("Kevin", 10, 5);
+var opponent = new Character("Dragon", 15, 3);
+
 var turnCount = 1;
-var playerHealthStart = 10;
-var enemyHealthStart = 15;
-var playerHealth = 10;
-var enemyHealth = 15;
 
 var renderLog = document.getElementById("log");
 var renderTurn = document.getElementById("turn");
@@ -13,7 +18,7 @@ var getEnemyHealthbar = document.getElementsByClassName("healthbar")[1];
 
 var scrollToBottom = function() {
   return renderLog.scrollTop = renderLog.scrollHeight;
-}
+};
 
 var playerLose = function() {
   renderLog.innerHTML += ("You died...<br />");
@@ -21,7 +26,7 @@ var playerLose = function() {
   renderLog.innerHTML += ("The battle raged for " + (turnCount - 1) + " turns<br />");
   scrollToBottom();
   document.getElementsByTagName("button")[0].disabled = true;
-}
+};
 
 var playerWin = function() {
   renderLog.innerHTML += ("You won!<br />");
@@ -29,21 +34,16 @@ var playerWin = function() {
   renderLog.innerHTML += ("The battle raged for " + (turnCount - 1) + " turns<br />");
   scrollToBottom();
   document.getElementsByTagName("button")[0].disabled = true;
-}
+};
 
 var checkGameOver = function() {
-  if(playerHealth == 0) {
+  if(person.health == 0) {
     playerLose();
   }
-  else if(enemyHealth == 0) {
+  else if(opponent.health == 0) {
     playerWin();
   }
-}
-
-renderTurn.innerHTML = (turnCount++);
-
-renderPlayerHealth.innerHTML = playerHealth;
-renderEnemyHealth.innerHTML = enemyHealth;
+};
 
 var hitCheck = function() {
   return Math.floor(Math.random() * 2);
@@ -54,18 +54,23 @@ var attack = function(number) {
   return Math.floor(Math.random() * number);
 }
 
+renderTurn.innerHTML = (turnCount++);
+renderPlayerHealth.innerHTML = person.health;
+renderEnemyHealth.innerHTML = opponent.health;
+
+
 var playerTurn = function() {
   renderTurn.innerHTML = (turnCount++);
   scrollToBottom();
 
   renderLog.innerHTML += ("<br />");
   if(hitCheck()) {
-    var playerAttack = attack(5);
+    var playerAttack = attack(person.attackPower);
 
-    if(enemyHealth <= 12) {
+    if(opponent.health <= 12) {
       getEnemyHealthbar.classList.add("yellow");
     }
-    if(enemyHealth <= 5) {
+    if(opponent.health <= 5) {
       getEnemyHealthbar.classList.add("red");
     }
 
@@ -77,12 +82,12 @@ var playerTurn = function() {
     else {
       renderLog.innerHTML += ("You hit your enemy and did " + playerAttack + " damage<br/>");
       scrollToBottom();
-      enemyHealth -= playerAttack;
-      renderEnemyHealth.innerHTML = enemyHealth;
+      opponent.health -= playerAttack;
+      renderEnemyHealth.innerHTML = opponent.health;
 
-      if(enemyHealth <= 0) {
-        enemyHealth = 0;
-        renderEnemyHealth.innerHTML = enemyHealth;
+      if(opponent.health <= 0) {
+        opponent.health = 0;
+        renderEnemyHealth.innerHTML = opponent.health;
         getEnemyHealthbar.classList.add("gray");
         playerWin();
       }
@@ -101,7 +106,7 @@ var playerTurn = function() {
 
 var enemyTurn = function() {
   if(hitCheck()) {
-    var enemyAttack = attack(3);
+    var enemyAttack = attack(opponent.attackPower);
 
     if(enemyAttack == 0) {
       renderLog.innerHTML += ("You blocked!<br />");
@@ -110,19 +115,19 @@ var enemyTurn = function() {
     else {
       renderLog.innerHTML += ("The enemy hit you for " + enemyAttack + " damage<br />");
       scrollToBottom();
-      playerHealth -= enemyAttack;
-      renderPlayerHealth.innerHTML = playerHealth;
+      person.health -= enemyAttack;
+      renderPlayerHealth.innerHTML = person.health;
 
-      if(playerHealth <= 7) {
+      if(person.health <= 7) {
         getPlayerHealthbar.classList.add("yellow");
       }
-      if(playerHealth <= 3) {
+      if(person.health <= 3) {
         getPlayerHealthbar.classList.add("red");
       }
 
-      if(playerHealth <= 0) {
-        playerHealth = 0;
-        renderPlayerHealth.innerHTML = playerHealth;
+      if(person.health <= 0) {
+        person.health = 0;
+        renderPlayerHealth.innerHTML = person.health;
         getPlayerHealthbar.classList.add("gray");
         playerLose();
       }
