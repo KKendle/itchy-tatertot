@@ -95,11 +95,28 @@ body {
 .potion {
   height: 50px;
   width: 50px;
-  background: cyan;
   display: inline-block;
+  cursor: pointer;
 }
 .potion.gray {
   background: gray;
+  cursor: not-allowed;
+}
+.flask {
+
+}
+.small-bubble {
+}
+.large-bubble {
+}
+/* svg attrib from Noun Project */
+text {
+  visibility: hidden;
+  height: 0;
+  width: 0;
+  font-size: 0;
+  margin: 0;
+  padding: 0;
 }
 
 /* TURN BUTTON */

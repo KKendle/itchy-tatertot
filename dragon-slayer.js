@@ -8,6 +8,8 @@ var person = new Character("Kevin", 10, 5);
 var opponent = new Character("Dragon", 25, 3);
 
 var turnCount = 1;
+var personTotalHealth = person.health;
+var opponentTotalHealth = opponent.health;
 
 var renderLog = document.getElementById("log");
 var renderTurn = document.getElementById("turn");
@@ -82,35 +84,91 @@ var attack = function(number) {
 
 var critCheck = function() {
   var random = Math.random();
-  console.log("checking for crit");
   if(random <= .01) {
-    console.log("crit");
+    // crit
     return true;
   }
   else {
-    console.log("no crit");
+    // no crit
     return false;
   }
 }
 
 var usePotion = function(value) {
-  var getPotion = document.getElementsByClassName("potion");
-  if(value == 1) {
-    getPotion[0].classList.add("gray");
-    person.health += 3;
-    renderPlayerHealth.innerHTML = person.health;
+  if(person.health == personTotalHealth) {
+    renderLog.innerHTML += ("<br />You are already at full health<br />");
+    scrollToBottom();
   }
-  else if(value == 2) {
-    getPotion[1].classList.add("gray");
-    person.health += 3;
-    renderPlayerHealth.innerHTML = person.health;
+  else {
+    var healValue = 3;
+    var getPotion = document.getElementsByClassName("potion");
+    renderLog.innerHTML += ("<br />You use a potion<br />");
+    scrollToBottom();
+
+    if(value == 1) {
+      getPotion[0].classList.add("gray");
+      // increase health
+      person.health += healValue;
+      // don't go over the playerTotalHealth amount
+      if(person.health >= personTotalHealth) {
+        // find the overage difference
+        var healValueDifference = person.health - personTotalHealth;
+        healValue -= healValueDifference;
+        person.health = personTotalHealth;
+        renderPlayerHealth.innerHTML = person.health;
+        // update log with how much was actually healed for
+        renderLog.innerHTML += ("It heals for " + healValue + " health<br />");
+        scrollToBottom();
+      }
+      else {
+        renderPlayerHealth.innerHTML = person.health;
+        renderLog.innerHTML += ("It heals for " + healValue + " health<br />");
+        scrollToBottom();
+      }
+    }
+    else if(value == 2) {
+      getPotion[1].classList.add("gray");
+      // increase health
+      person.health += healValue;
+      // don't go over the playerTotalHealth amount
+      if(person.health >= personTotalHealth) {
+        // find the overage difference
+        var healValueDifference = person.health - personTotalHealth;
+        healValue -= healValueDifference;
+        person.health = personTotalHealth;
+        renderPlayerHealth.innerHTML = person.health;
+        // update log with how much was actually healed for
+        renderLog.innerHTML += ("It heals for " + healValue + " health<br />");
+        scrollToBottom();
+      }
+      else {
+        renderPlayerHealth.innerHTML = person.health;
+        renderLog.innerHTML += ("It heals for " + healValue + " health<br />");
+        scrollToBottom();
+      }
+    }
+    else if(value == 3) {
+      getPotion[2].classList.add("gray");
+      // increase health
+      person.health += healValue;
+      // don't go over the playerTotalHealth amount
+      if(person.health >= personTotalHealth) {
+        // find the overage difference
+        var healValueDifference = person.health - personTotalHealth;
+        healValue -= healValueDifference;
+        person.health = personTotalHealth;
+        renderPlayerHealth.innerHTML = person.health;
+        // update log with how much was actually healed for
+        renderLog.innerHTML += ("It heals for " + healValue + " health<br />");
+        scrollToBottom();
+      }
+      else {
+        renderPlayerHealth.innerHTML = person.health;
+        renderLog.innerHTML += ("It heals for " + healValue + " health<br />");
+        scrollToBottom();
+      }
+    }
   }
-  else if(value == 3) {
-    getPotion[2].classList.add("gray");
-    person.health += 3;
-    renderPlayerHealth.innerHTML = person.health;
-  }
-  return true;
 };
 
 
@@ -128,7 +186,6 @@ var playerTurn = function() {
   renderLog.innerHTML += ("<br />");
   if(hitCheck()) {
     var playerAttack = attack(person.attackPower);
-    console.log("player attack " + playerAttack);
 
     if(playerAttack == 0) {
       renderLog.innerHTML += ("The enemy blocked!<br/>");
@@ -137,12 +194,9 @@ var playerTurn = function() {
     }
     else {
       var critAmount = critCheck();
-      console.log("crit return val " + critAmount);
       if(critAmount) {
-        console.log("same attack val " + playerAttack);
-        playerAttack *= 2;
-        console.log("crit total damage " + playerAttack);
         renderLog.innerHTML += ("Crit!<br />");
+        playerAttack *= 2;
         renderLog.innerHTML += ("You hit your enemy and did " + playerAttack + " damage<br/>");
       }
       else {
@@ -158,11 +212,13 @@ var playerTurn = function() {
         getEnemyHealthbar.classList.add("gray");
         playerWin();
       }
-      else if(opponent.health <= 5) {
+      else if(opponent.health <= (opponentTotalHealth * .3)) {
         getEnemyHealthbar.classList.add("red");
+        enemyTurn();
       }
-      if(opponent.health <= 12) {
+      else if(opponent.health <= (opponentTotalHealth * .7)) {
         getEnemyHealthbar.classList.add("yellow");
+        enemyTurn();
       }
       else {
         enemyTurn();
@@ -186,18 +242,14 @@ var enemyTurn = function() {
     }
 
     var enemyAttack = attack(opponent.attackPower);
-    console.log("enemy attack " + enemyAttack);
     if(enemyAttack == 0) {
       renderLog.innerHTML += ("You blocked!<br />");
       scrollToBottom();
     }
     else {
       var critAmount = critCheck();
-      console.log("crit return val " + critAmount);
       if(critAmount) {
-        console.log("same value " + enemyAttack);
         enemyAttack *= 2;
-        console.log("crit total damage " + enemyAttack);
         renderLog.innerHTML += ("Crit!<br />");
         renderLog.innerHTML += ("The enemy hit you for " + enemyAttack + " damage<br/>");
       }
@@ -214,10 +266,10 @@ var enemyTurn = function() {
         getPlayerHealthbar.classList.add("gray");
         playerLose();
       }
-      else if(person.health <= 3) {
+      else if(person.health <= (personTotalHealth * .3)) {
         getPlayerHealthbar.classList.add("red");
       }
-      else if(person.health <= 7) {
+      else if(person.health <= (personTotalHealth * .7)) {
         getPlayerHealthbar.classList.add("yellow");
       }
       else {
