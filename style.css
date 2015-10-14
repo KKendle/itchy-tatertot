@@ -38,6 +38,7 @@ body {
 /* TURN COUNTER */
 .turn-counter {
   margin: auto;
+  margin-top: 0;
   width: 25px;
   background-color: #3d3e4b;
   color: #fff;
@@ -63,6 +64,7 @@ body {
 }
 .health {
   margin: auto;
+  margin-top: 0;
   width: 46%;
   max-width: 300px;
   padding: 0 1%;
@@ -74,6 +76,7 @@ body {
   height: 20px;
   background: green;
   width: 100%;
+  margin: 4px 0;
 }
 .healthbar.yellow {
   background: yellow;
@@ -86,6 +89,17 @@ body {
 .healthbar.gray {
   background: gray;
   width: 2px;
+}
+
+/* POTIONS */
+.potion {
+  height: 50px;
+  width: 50px;
+  background: cyan;
+  display: inline-block;
+}
+.potion.gray {
+  background: gray;
 }
 
 /* TURN BUTTON */
