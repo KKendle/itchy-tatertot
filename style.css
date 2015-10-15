@@ -106,22 +106,33 @@ body {
 
 }
 .small-bubble {
-  animation: bubble 1s infinite;
+  -webkit-animation: bubble 1s infinite ease-in;
+  animation: bubble 1s infinite ease-in;
 }
 .potion:nth-of-type(3n+2) .small-bubble {
+  -webkit-animation: bubble 1.25s infinite .3s;
   animation: bubble 1.25s infinite .3s;
 }
 .potion:nth-of-type(3n+3) .small-bubble {
+  -webkit-animation: bubble 1.15s infinite .15s;
   animation: bubble 1.15s infinite .15s;
 }
 .large-bubble {
-  animation: bubble-large 1.5s infinite .5s;
+  -webkit-animation: bubble-large 1.5s infinite .5s ease-in;
+  animation: bubble-large 1.5s infinite .5s ease-in;
 }
 .potion:nth-of-type(3n+2) .large-bubble {
+  -webkit-animation: bubble-large 1.25s infinite;
   animation: bubble-large 1.25s infinite;
 }
 .potion:nth-of-type(3n+3) .large-bubble {
+  -webkit-animation: bubble-large 1.3s infinite .25s;
   animation: bubble-large 1.3s infinite .25s;
+}
+/* stop animation when potion has been used */
+.potion.gray .small-bubble,
+.potion.gray .large-bubble {
+  animation: initial;
 }
 /* svg attrib from Noun Project */
 text {
