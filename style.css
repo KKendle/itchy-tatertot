@@ -106,8 +106,22 @@ body {
 
 }
 .small-bubble {
+  animation: bubble 1s infinite;
+}
+.potion:nth-of-type(3n+2) .small-bubble {
+  animation: bubble 1.25s infinite .3s;
+}
+.potion:nth-of-type(3n+3) .small-bubble {
+  animation: bubble 1.15s infinite .15s;
 }
 .large-bubble {
+  animation: bubble-large 1.5s infinite .5s;
+}
+.potion:nth-of-type(3n+2) .large-bubble {
+  animation: bubble-large 1.25s infinite;
+}
+.potion:nth-of-type(3n+3) .large-bubble {
+  animation: bubble-large 1.3s infinite .25s;
 }
 /* svg attrib from Noun Project */
 text {
